@@ -10,6 +10,82 @@ app.use(function(req, res, next){
         next();
 });
 
+app.get('/newsletter', function(req, res){
+res.render('newsletter', { csrf: 'CSRF token goes here' });
+});
+app.use(function(req, res, next){
+  if(!res.locals.partials) res.locals.partials = {};
+  res.locals.partials.weatherContext = {
+   locations: [
+  {
+                name: 'Portland',
+                forecastUrl: 'http://www.forecast.com/portland',
+                iconUrl: 'http://www.icon.com/icon',
+                weather: 'Overcast',
+                temp: '54.1 F (12.3 C)',
+},
+{
+                name:'Bend',
+                forecastUrl: 'http://www.forceast.com/bend',
+                iconUrl: 'http://www.icon.com/icon',
+                weather: 'Partly Cloudy',
+                temp: '54.1 F (12.3 C)',
+},
+{
+                name:'Manzanita',
+                forecastUrl: 'http://www.forceast.com/Manzanita',
+                iconUrl: 'http://www.icon.com/icon',
+                weather: 'Light Rain',
+                temp: '54.1 F (12.3 C)',
+        },
+],
+};
+next();
+});
+
+
+app.get('/schedule', function(req, res){
+        res.render('schedule', {
+                currency: {
+                        name: 'Point Park University',
+                        abbrev: 'USD',
+                },
+                courses: [
+                        { name: 'Web Application Development'},
+                        { name: 'Digital Security'},
+                        { name: 'Public Administration'},
+			{ name: 'Business Law 1'},
+			{ name: 'Business Communications'},
+			{ name: 'World Religions'},
+
+
+
+                ],
+                specialsUrl: '/january-specials',
+                
+        });
+});
+
+
+app.get('/tour-info', function(req, res){
+        res.render('tour-info', {
+                currency: {
+                        name: 'United States dollars',
+                        abbrev: 'USD',
+                },
+                tours: [
+                        { name: 'Hood River', price: '$99.95', location: 'Whatever'},
+                        { name: 'Oregon Coast', price: '$159.95', location: 'Oregon'},
+                        { name: 'Pittsburgh', price: '$359.95', location: 'Pennsylvania' },
+                ],
+                specialsUrl: '/january-specials',
+                currencies: 'USD'
+        });
+});
+
+
+
+
 app.get('/headers', function(req, res){
 res.set('Content-Type', 'text/plain');
 var s = '';
@@ -40,6 +116,8 @@ app.get('/datetime', function(req, res) {
 });
 //static pages
 app.use(express.static(__dirname + '/public'));
+app.use(require('body-parser').urlencoded({ extended: true }));
+
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
         res.status(404);

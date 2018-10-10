@@ -1,0 +1,73 @@
+<h1>Schedule</h1>
+<ul>
+        {{#each courses}}
+                {{! I'm in a new block...and the context has changed }}
+                <li>
+                        {{name}}
+                        {{#if ../currencies}}
+                                ({{../currency.abbrev}})
+                        {{/if}}
+                </li>
+        {{/each}}
+</ul>
+{{#unless currencies}}
+<p>Courses at {{currency.name}} include:</p>
+{{/unless}}
+{{#if specialsUrl}}
+{{! I'm in a new block...but the context hasn't changed (sortof) }}
+{{else}}
+<p>Please check back often for specials.</p>
+{{/if}}
+<p>
+        {{#each currencies}}
+                <a href="#" class="currency">{{.}}</a>
+        {{else}}
+        {{/each}}
+</p>
+
+<table style="width:100%">
+<table border="2">
+  <tr>
+    <th>Course Code</th>
+    <th>Course Description</th> 
+    <th>Credits</th>
+    <th>Instrucor</th>
+  </tr>
+  <tr>
+   <td align="center"><br>CMPS 361 E A</br></td>
+   <td align="center">Web Application Development</td>
+   <td align="center">3</td>
+   <td align="center">Mark Voortman</td>
+  </tr>
+  <tr>
+    <td align="center"><br>CMPS 363 E A</br></td>
+    <td align="center">Digital Security</td>
+    <td align="center">3</td>
+    <td align="center">Brian Bolsinger</td>
+  </tr>
+  <tr>
+    <td align="center"><br>PADM 210 D A</br></td>
+    <td align="center">Public Administration</td>
+    <td align="center">3</td>
+    <td align="center">Soren Hogsgaard</td>
+  </tr>
+  <tr>
+    <td align="center"><br>BMGT 201 D A</br></td>
+    <td align="center">Business Law 1</td>
+    <td align="center">3</td>
+    <td align="center">Daniel Fitzhenry</td>
+  </tr>
+  <tr>
+    <td align="center"><br>BMGT 221 E A WI</br></td>
+    <td align="center">Business Communications</td>
+    <td align="center">3</td>
+    <td align="center">John Lawrence</td>
+  </tr>
+  <tr>
+    <td align="center"><br>PHIL 215 D A</br></td>
+    <td align="center">World Religions</td>
+    <td align="center">3</td>
+    <td align="center">George Phillips</td>
+  </tr>
+   <tr>
+</table>

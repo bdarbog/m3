@@ -1,0 +1,66 @@
+<h1>Schedule</h1>
+<ul>
+        {{#each courses}}
+                {{! I'm in a new block...and the context has changed }}
+                <li>
+                        {{name}} - {{day}} - {{time}}
+                        {{#if ../currencies}}
+                                ({{../currency.abbrev}})
+                        {{/if}}
+                </li>
+        {{/each}}
+</ul>
+{{#unless currencies}}
+<p>Courses at {{currency.name}} include:</p>
+{{/unless}}
+{{#if specialsUrl}}
+{{! I'm in a new block...but the context hasn't changed (sortof) }}
+{{else}}
+<p>Please check back often for specials.</p>
+{{/if}}
+<p>
+        {{#each currencies}}
+                <a href="#" class="currency">{{.}}</a>
+        {{else}}
+        {{/each}}
+</p>
+
+<table style="width:100%">
+<table border="2">
+  <tr>
+    <th>Courses</th>
+    <th>Day</th>
+    <th>Time</th>
+  </tr>
+  <tr>
+   <td align="center"><br>Web Application Development</br></td>
+   <td align="center">Thrusday</td>
+   <td align="center">6pm-9pm</td>
+  </tr>
+  <tr>
+    <td align="center"><br>Digital Security</br></td>
+    <td align="center">Wednesday</td>
+    <td align="center">6pm-9pm</td>
+  </tr>
+  <tr>
+    <td align="center"><br>Public Administration</br></td>
+    <td align="center">Mondays/Wednesdays</td>
+    <td align="center">11:20am-12:50pm</td>
+  </tr>
+  <tr>
+    <td align="center"><br>Business Law 1</br></td>
+    <td align="center">Mondays/Wednesdays</td>
+    <td align="center">9:40am-11:10am</td>
+  </tr>
+  <tr>
+    <td align="center"><br>Business Communications</br></td>
+    <td align="center">Tuesdays/Thursdays</td>
+    <td align="center">4:20pm-5:50pm</td>
+  </tr>
+  <tr>
+    <td align="center"><br>World Religions</br></td>
+    <td align="center">Mondays/Wednesdays</td>
+    <td align="center">1pm-2:30pm</td>
+  </tr>
+</table>
+
