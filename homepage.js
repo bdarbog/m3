@@ -10,9 +10,39 @@ app.use(function(req, res, next){
         next();
 });
 
+app.use(require('body-parser').urlencoded({ extended: true }));
+
 app.get('/newsletter', function(req, res){
 res.render('newsletter', { csrf: 'CSRF token goes here' });
 });
+
+app.get('/newsletter-ajax', function(req, res){
+res.render('newsletter-ajax', { csrf: 'CSRF token goes here' });
+});
+
+app.post('/process', function(req,res){
+  if(req.xhr || req.accepts('json,html')==='json'){
+  // if there were an error, we would send {error: 'error description' }
+  console.log(JSON.stringify(req.body));
+  res.send({
+  success: true,
+  message: "The submission was successful!"
+ });
+} else {
+  // if there were an error, we would redirect to an error page
+  res.redirect(303, '/thank-you');
+  }
+});
+
+app.post('/process', function(req, res){
+console.log('Form (from querystring): ' + req.query.form);
+console.log('CSRF token (from hidden form field): ' + req.body._csrf);
+console.log('Name (from visible form field): ' + req.body.name);
+console.log('Email (from visible form field): ' + req.body.email);
+res.redirect(303, '/thank-you');
+});
+
+
 app.use(function(req, res, next){
   if(!res.locals.partials) res.locals.partials = {};
   res.locals.partials.weatherContext = {
@@ -83,9 +113,6 @@ app.get('/tour-info', function(req, res){
         });
 });
 
-
-
-
 app.get('/headers', function(req, res){
 res.set('Content-Type', 'text/plain');
 var s = '';
@@ -116,7 +143,6 @@ app.get('/datetime', function(req, res) {
 });
 //static pages
 app.use(express.static(__dirname + '/public'));
-app.use(require('body-parser').urlencoded({ extended: true }));
 
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
